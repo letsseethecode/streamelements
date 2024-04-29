@@ -12,19 +12,95 @@
     --highlight: hsl(140, 90%, 90%);
     --border: rgba(255, 255, 255, 50%);
     --width: 480px;
+    --radius: 20px;
+
+    position: absolute;
     width: var(--width);
-    padding-top: 100%;
-    left: calc(50% - (var(--width) / 2));
     top: calc(50% - 200px);
+    left: calc(50% - (var(--width) / 2));
+
     background-color: var(--black);
     color: var(--green);
-    border-radius: 10px;
+
+    border: solid 2px var(--border);
+    border-radius: var(--radius);
+
     padding: 0 20px;
     font-size: 14px;
-    border: solid 2px var(--border);
-    position: absolute;
+
     z-index: 0;
-    animation: alert 10s ease-in-out 0ms 1 normal forwards;
+    animation: alert 5s ease-in-out 0s 1 normal forwards;
+}
+
+.alert::before {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    border-radius: var(--radius);
+
+    background: linear-gradient(transparent 3px, #00000044 1px);
+    background-size: auto 4px;
+}
+
+.alert__title {
+    font-size: 190%;
+}
+
+.alert__image {
+    width: 100%;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+}
+
+.alert__title,
+.alert__message {
+    padding: 10px 0;
+}
+
+.console {}
+
+.console::before {
+    content: '> ';
+}
+
+.console::after {
+    content: '\00a0';
+    background-color: var(--green);
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: step-end;
+    animation-iteration-count: infinite;
+}
+
+.console__character {
+    display: inline-block;
+    width: 0;
+    animation-name: reveal;
+    animation-duration: 100ms;
+    animation-iteration-count: 1;
+    animation-timing-function: step-end;
+    animation-fill-mode: forwards;
+}
+
+.console__cursor {
+    background-color: var(--green);
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: step-end;
+    animation-iteration-count: infinite;
+}
+
+.highlight {
+    color: var(--highlight);
+    animation-name: toggle;
+    animation-duration: 1s;
+    animation-timing-function: step-end;
+    animation-iteration-count: infinite;
 }
 
 @keyframes alert {
@@ -77,88 +153,17 @@
     }
 }
 
-.alert::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-radius: 10px;
-    background: linear-gradient(transparent 3px, #00000044 1px);
-    background-size: auto 4px;
-    pointer-events: none;
-}
-
-.alert__title {
-    font-size: 190%;
-}
-
-.alert__animation {}
-
-.alert__image {
-    width: 100%;
-    aspect-ratio: 3/2;
-    object-fit: cover;
-}
-
-.alert__title,
-.alert__message {
-    padding: 10px 0;
-}
-
-.console {}
-
-.console::before {
-    content: '> ';
-}
-
-.console::after {
-    content: '\00a0';
-    background-color: var(--green);
-    animation-name: blink;
-    animation-duration: 1s;
-    animation-timing-function: step-end;
-    animation-iteration-count: infinite;
-}
-
-.console__character {
-    display: inline-block;
-    width: 0;
-    animation-name: reveal;
-    animation-duration: 100ms;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-}
-
-.console__cursor {
-    background-color: var(--green);
-    animation-name: blink;
-    animation-duration: 1s;
-    animation-timing-function: step-end;
-    animation-iteration-count: infinite;
-}
-
-.highlight {
-    color: var(--highlight);
-    animation-name: toggle;
-    animation-duration: 1s;
-    animation-delay: 0.5s;
-    animation-timing-function: step-end;
-    animation-iteration-count: infinite;
-}
-
 @keyframes toggle {
     0% {
-        color: var(--highlight);
-    }
-
-    50% {
         color: var(--green);
     }
 
-    100% {
+    50% {
         color: var(--highlight);
+    }
+
+    100% {
+        color: var(--green);
     }
 }
 
